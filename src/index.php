@@ -1,12 +1,18 @@
-<!DOCTYPE html>
+<?php include 'nocache.php'; ?>
 <html lang="en" class="vibe-compact">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Cache control meta tags -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
     <title>VIBE - Music Search</title>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="./css/vibe.css">
-    <link rel="stylesheet" href="./css/themes/dark.css">
+    <!-- Add version parameters to force reload -->
+    <link rel="stylesheet" href="./css/vibe.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="./css/themes/dark.css?v=<?php echo time(); ?>">
 </head>
 <body>
     <div class="icon-bar compact">
@@ -125,11 +131,11 @@
         </tbody>
     </table>
 
-    <!-- Scripts -->
-    <script src="js/search.js"></script>
-    <script src="js/filter-menu.js"></script>
-    <script src="js/playout.js"></script>
-    <script src="js/cache.js"></script>
+    <!-- Scripts with version parameters -->
+    <script src="js/search.js?v=<?php echo time(); ?>"></script>
+    <script src="js/filter-menu.js?v=<?php echo time(); ?>"></script>
+    <script src="js/playout.js?v=<?php echo time(); ?>"></script>
+    <script src="js/cache.js?v=<?php echo time(); ?>"></script>
     <script>
         // Initialize Lucide icons
         lucide.createIcons();

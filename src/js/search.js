@@ -2,7 +2,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Search functionality
     const searchInput = document.querySelector('input[type="search"]');
     const searchButton = document.querySelector('.save-search-btn');
-    const filterSelects = document.querySelectorAll('.filter-input');
+    const filterSelects = document.querySelectorAll('.filter-select select');
+    const historyButton = document.querySelector('button[title="Recent Searches"]');
+
+    // Initialize history menu
+    let historyMenu = document.createElement('div');
+    historyMenu.id = 'search-history-menu';
+    historyMenu.className = 'unified-menu';
+    document.body.appendChild(historyMenu);
 
     // Search history
     const searchHistory = {
@@ -14,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 filters,
                 timestamp: new Date().toISOString()
             };
-
+            
             // Remove duplicate searches
             this.items = this.items.filter(item => 
                 !(item.query === query && 
@@ -39,34 +46,48 @@ document.addEventListener('DOMContentLoaded', function() {
         },
 
         updateHistoryUI() {
-            const historyButton = document.querySelector('button[title="Recent Searches"]');
-            if (!historyButton) return;
+            if (!historyMenu) return;
 
-            // Create or update history dropdown
-            let historyMenu = document.getElementById('search-history-menu');
-            if (!historyMenu) {
-                historyMenu = document.createElement('div');
-                historyMenu.id = 'search-history-menu';
-                historyMenu.className = 'unified-menu';
-                document.body.appendChild(historyMenu);
+            if (this.items.length === 0) {
+                historyMenu.innerHTML = `
+                    <div class="menu-item">
+                        <span class="text-muted">No recent searches</span>
+                    </div>`;
+                return;
             }
 
             historyMenu.innerHTML = this.items.map(item => `
                 <div class="menu-item" data-search='${JSON.stringify(item)}'>
-                    <div class="history-query">${item.query}</div>
-                    ${Object.entries(item.filters)
-                        .filter(([_, value]) => value)
-                        .map(([key, value]) => `
-                            <span class="filter-tag">${key}: ${value}</span>
-                        `).join('')}
+                    <div class="history-query">
+                        <i data-lucide="search" size="14"></i>
+                        ${item.query}
+                    </div>
+                    <div class="history-filters">
+                        ${Object.entries(item.filters)
+                            .filter(([_, value]) => value)
+                            .map(([key, value]) => `
+                                <span class="filter-tag">${key}: ${value}</span>
+                            `).join('')}
+                    </div>
+                    <div class="history-timestamp">
+                        ${new Date(item.timestamp).toLocaleString()}
+                    </div>
                 </div>
             `).join('');
 
+            // Initialize icons in the new menu items
+            lucide.createIcons({
+                parent: historyMenu
+            });
+
             // Add click handlers for history items
             historyMenu.querySelectorAll('.menu-item').forEach(item => {
+                if (!item.dataset.search) return;
+                
                 item.addEventListener('click', () => {
                     const searchData = JSON.parse(item.dataset.search);
                     loadSearch(searchData);
+                    historyMenu.style.display = 'none';
                 });
             });
         }
@@ -81,19 +102,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Update filter selections
         Object.entries(searchData.filters).forEach(([filterName, value]) => {
-            const select = document.querySelector(`select[data-filter="${filterName}"]`);
+            const select = document.querySelector(`select[data-filter="${filterName.toLowerCase()}"]`);
             if (select) {
                 select.value = value;
                 // Update custom filter button text if it exists
-                const wrapper = select.closest('.filter-wrapper');
-                if (wrapper) {
-                    const button = wrapper.querySelector('.filter-button span');
-                    const selectedOption = Array.from(select.options)
-                        .find(option => option.value === value);
-                    if (button && selectedOption) {
-                        button.textContent = selectedOption.text;
-                    }
+                const button = select.previousElementSibling;
+                if (button && button.classList.contains('filter-button')) {
+                    button.querySelector('span').textContent = 
+                        select.options[select.selectedIndex].text;
                 }
+                // Trigger change event for the filter manager
+                select.dispatchEvent(new Event('change'));
             }
         });
 
@@ -137,18 +156,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // History button handler
-    const historyButton = document.querySelector('button[title="Recent Searches"]');
     if (historyButton) {
         historyButton.addEventListener('click', (e) => {
             e.stopPropagation();
-            const historyMenu = document.getElementById('search-history-menu');
-            if (historyMenu) {
+            
+            // Toggle history menu
+            const isVisible = historyMenu.style.display === 'block';
+            historyMenu.style.display = isVisible ? 'none' : 'block';
+            
+            if (!isVisible) {
+                // Position the menu below the history button
                 const rect = historyButton.getBoundingClientRect();
-                historyMenu.style.display = 
-                    historyMenu.style.display === 'none' ? 'block' : 'none';
-                historyMenu.style.top = (rect.bottom + window.scrollY) + 'px';
-                historyMenu.style.right = 
-                    (window.innerWidth - rect.right) + 'px';
+                historyMenu.style.top = `${rect.bottom + window.scrollY}px`;
+                historyMenu.style.left = `${rect.left}px`;
+                
+                // Update the UI in case it changed
+                searchHistory.updateHistoryUI();
             }
         });
     }
@@ -162,10 +185,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Close history menu on click outside
+    // Close history menu on outside click
     document.addEventListener('click', (e) => {
-        const historyMenu = document.getElementById('search-history-menu');
-        if (historyMenu && !e.target.closest('button[title="Recent Searches"]')) {
+        if (!e.target.closest('button[title="Recent Searches"]') && 
+            !e.target.closest('#search-history-menu')) {
             historyMenu.style.display = 'none';
         }
     });
