@@ -1,0 +1,9 @@
+/* Dark theme variables */
+:root {
+    --background-color: #1E1E1E;
+    --surface-color: #2D2D2D;
+    --primary-blue: #1a75ff;
+    --text-color: #FFFFFF;
+    --text-muted: #999999;
+    --border-color: #404040;
+}
