@@ -36,35 +36,35 @@
         </div>
         <div class="filters-grid compact">
             <div class="filter-select">
-                <select class="compact">
+                <select class="compact filter-input" data-filter="genre">
                     <option value="">Genre</option>
-                    <option>New Wave</option>
-                    <option>Post-Punk</option>
-                    <option>Synthpop</option>
+                    <option value="new-wave">New Wave</option>
+                    <option value="post-punk">Post-Punk</option>
+                    <option value="synthpop">Synthpop</option>
                 </select>
             </div>
             <div class="filter-select">
-                <select class="compact">
+                <select class="compact filter-input" data-filter="mood">
                     <option value="">Mood</option>
-                    <option>Energetic</option>
-                    <option>Melancholic</option>
-                    <option>Upbeat</option>
+                    <option value="energetic">Energetic</option>
+                    <option value="melancholic">Melancholic</option>
+                    <option value="upbeat">Upbeat</option>
                 </select>
             </div>
             <div class="filter-select">
-                <select class="compact">
+                <select class="compact filter-input" data-filter="tempo">
                     <option value="">Tempo</option>
-                    <option>Slow</option>
-                    <option>Medium</option>
-                    <option>Fast</option>
+                    <option value="slow">Slow</option>
+                    <option value="medium">Medium</option>
+                    <option value="fast">Fast</option>
                 </select>
             </div>
             <div class="filter-select">
-                <select class="compact">
+                <select class="compact filter-input" data-filter="label">
                     <option value="">Label</option>
-                    <option>4AD</option>
-                    <option>Factory</option>
-                    <option>Mute</option>
+                    <option value="4ad">4AD</option>
+                    <option value="factory">Factory</option>
+                    <option value="mute">Mute</option>
                 </select>
             </div>
         </div>
@@ -127,6 +127,7 @@
 
     <!-- Scripts -->
     <script src="js/search.js"></script>
+    <script src="js/filter-menu.js"></script>
     <script src="js/playout.js"></script>
     <script src="js/cache.js"></script>
     <script>

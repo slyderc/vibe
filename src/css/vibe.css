@@ -1,431 +1,23 @@
-/* Base styles remain the same... */
+/* 
+ * VIBE Interface Styles
+ * Optimized and organized CSS for the VIBE interface
+ * Maintains compatibility with Safari, Edge, Chrome, and Firefox
+ */
 
-/* Compact UI styles */
-html.vibe-compact .icon-bar {
-    padding: 4px !important;
-    margin-bottom: 8px !important;
-    min-height: unset !important;
-}
-
-html.vibe-compact .icon-button {
-    width: 24px !important;
-    height: 24px !important;
-    padding: 0 !important;
-}
-
-html.vibe-compact .icon-button svg {
-    width: 14px !important;
-    height: 14px !important;
-}
-
-html.vibe-compact .search-container {
-    padding: 8px !important;
-    margin-bottom: 8px !important;
-}
-
-html.vibe-compact input[type="search"] {
-    height: 28px !important;
-    padding: 4px 8px !important;
-    font-size: 12px !important;
-}
-
-html.vibe-compact .save-search-btn {
-    height: 28px !important;
-    padding: 0 12px !important;
-    font-size: 12px !important;
-}
-
-html.vibe-compact .filter-select select {
-    height: 28px !important;
-    padding: 4px 8px !important;
-    font-size: 12px !important;
-}
-
-/* Table text contrast - Using the proven working styles */
-.results-table th {
-    color: #777777 !important;  /* Dim headers */
-    padding: 4px 6px !important;
-    font-size: 12px !important;
-}
-
-.results-table td:not(:first-child) {
-    color: #FFFFFF !important;  /* Bright content */
-    padding: 4px 6px !important;
-    font-size: 12px !important;
-}
-
-html.vibe-compact .cart-button {
-    height: 24px !important;
-    padding: 2px 8px 2px 2px !important;
-    font-size: 11px !important;
-}
-
-html.vibe-compact .unified-menu {
-    padding: 2px 0 !important;
-}
-
-html.vibe-compact .menu-item {
-    padding: 4px 8px !important;
-    font-size: 11px !important;
-}
-
-html.vibe-compact .menu-item svg {
-    width: 12px !important;
-    height: 12px !important;
-}
-
-html.vibe-compact .menu-separator {
-    margin: 2px 0 !important;
-}/* Cart column styles */
-.results-table th:first-child {
-    width: 85px !important;
-    max-width: 85px !important;
-    min-width: 85px !important;
-    padding: 8px 4px !important;
-    background-color: rgba(100, 255, 100, 0.16) !important;
-    white-space: nowrap;
-}
-
-.results-table td:first-child {
-    width: 85px !important;
-    max-width: 85px !important;
-    min-width: 85px !important;
-    padding: 4px !important;
-    background-color: rgba(100, 255, 100, 0.16) !important;
-}
-
-/* Cart button styles */
-.cart-button {
-    width: 100%;
-    padding: 4px 16px 4px 4px;
-    background-color: transparent;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    color: var(--text-color);
-    font-size: 13px;
-    cursor: pointer;
-    text-align: left;
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.cart-button::after {
-    content: "▼";
-    position: absolute;
-    right: 4px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 10px;
-    color: var(--text-muted);
-}
-
-.cart-button:hover {
-    border-color: var(--primary-blue);
-    background-color: rgba(100, 255, 100, 0.24);
-}
-
-.cart-button.active {
-    border-color: var(--primary-blue);
-    background-color: var(--surface-color);
-}
-
-/* Unified menu styles */
-.unified-menu {
-    display: none;
-    position: fixed;
-    background: var(--surface-color);
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    padding: 4px 0;
-    min-width: 150px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    z-index: 1000;
-}
-
-.menu-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    cursor: pointer;
-    color: var(--text-color);
-    font-size: 13px;
-    white-space: nowrap;
-}
-
-.menu-item:hover {
-    background-color: var(--primary-blue);
-}
-
-.menu-item svg {
-    width: 16px;
-    height: 16px;
-}
-
-.menu-separator {
-    height: 1px;
-    background-color: var(--border-color);
-    margin: 4px 0;
-}
-
-/* Drag styles */
-.results-table tbody tr td:not(:first-child) {
-    cursor: grab;
-}
-
-.results-table tbody tr td:not(:first-child):active {
-    cursor: grabbing;
-}
-
-.results-table td.dragging {
-    opacity: 0.5;
-    background-color: rgba(255, 255, 255, 0.1);
-}/* Cart column specific styles */
-.results-table th:first-child {
-    width: 85px !important;
-    max-width: 85px !important;
-    min-width: 85px !important;
-    padding: 8px 4px !important;
-    background-color: rgba(100, 255, 100, 0.16) !important;
-    white-space: nowrap;
-}
-
-.results-table td:first-child {
-    width: 85px !important;
-    max-width: 85px !important;
-    min-width: 85px !important;
-    padding: 4px !important;
-    background-color: rgba(100, 255, 100, 0.16) !important;
-}
-
-/* Cart dropdown specific styles */
-.cart-select {
-    background-color: rgba(100, 255, 100, 0.16) !important;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    color: var(--text-color);
-    padding: 4px 16px 4px 4px !important;
-    font-size: 13px;
-    cursor: pointer;
-    appearance: none !important;
-    -webkit-appearance: none !important;
-    -moz-appearance: none !important;
-    width: 100% !important;
-    max-width: 85px !important;
-    position: relative;
-    background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
-    background-repeat: no-repeat;
-    background-position: right 2px center;
-}
-
-.cart-select:hover {
-    border-color: var(--primary-blue);
-    background-color: rgba(100, 255, 100, 0.24) !important;
-}
-
-/* Enforce dark theme on the select element when open */
-.cart-select:focus {
-    border-color: var(--primary-blue);
-    outline: none;
-    background-color: var(--surface-color) !important;
-    color: var(--text-color) !important;
-}
-
-/* Style for the dropdown options */
-.cart-select option {
-    background-color: var(--surface-color) !important;
-    color: var(--text-color) !important;
-    padding: 8px !important;
-    font-size: 13px !important;
-}
-
-.cart-select optgroup {
-    background-color: var(--surface-color) !important;
-    color: var(--text-color) !important;
-}
-
-/* Enforce dark theme for disabled options */
-.cart-select option:disabled {
-    color: var(--border-color) !important;
-    background-color: var(--surface-color) !important;
-}
-
-/* Specific styles for different browsers */
-/* Chrome/Safari */
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-    .cart-select {
-        background-color: rgba(100, 255, 100, 0.16) !important;
-    }
-    
-    .cart-select option,
-    .cart-select optgroup {
-        background-color: var(--surface-color) !important;
-        color: var(--text-color) !important;
-    }
-}
-
-/* Firefox */
-@-moz-document url-prefix() {
-    .cart-select {
-        background-color: rgba(100, 255, 100, 0.16) !important;
-        color: var(--text-color) !important;
-    }
-    
-    .cart-select option,
-    .cart-select optgroup {
-        background-color: var(--surface-color) !important;
-        color: var(--text-color) !important;
-    }
-    
-    .cart-select:-moz-focusring {
-        color: transparent !important;
-        text-shadow: 0 0 0 var(--text-color) !important;
-    }
-}
-
-/* Microsoft Edge/IE */
-@supports (-ms-ime-align:auto) {
-    .cart-select {
-        background-color: rgba(100, 255, 100, 0.16) !important;
-        color: var(--text-color) !important;
-    }
-    
-    .cart-select option,
-    .cart-select optgroup {
-        background-color: var(--surface-color) !important;
-        color: var(--text-color) !important;
-    }
-}/* Cart column specific styles */
-.results-table th:first-child {
-    width: 85px !important;
-    max-width: 85px !important;
-    min-width: 85px !important;
-    padding: 8px 4px !important;
-    background-color: rgba(100, 255, 100, 0.08) !important;
-    white-space: nowrap;
-}
-
-.results-table td:first-child {
-    width: 85px !important;
-    max-width: 85px !important;
-    min-width: 85px !important;
-    padding: 4px !important;
-    background-color: rgba(100, 255, 100, 0.08) !important;
-}
-
-/* Cart dropdown specific styles */
-.cart-select {
-    background-color: rgba(100, 255, 100, 0.08) !important;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    color: var(--text-color);
-    padding: 4px 16px 4px 4px !important;
-    font-size: 13px;
-    cursor: pointer;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    width: 100% !important;
-    max-width: 85px !important;
-    position: relative;
-    background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
-    background-repeat: no-repeat;
-    background-position: right 2px center;
-}
-
-.cart-select:hover {
-    border-color: var(--primary-blue);
-    background-color: rgba(100, 255, 100, 0.12) !important;
-}
-
-.cart-select option {
-    background-color: var(--surface-color) !important;
-    color: var(--text-color);
-    padding: 8px;
-    font-size: 13px;
-}
-
-/* Style the dropdown menu itself */
-.cart-select option:not(:disabled) {
-    background-color: var(--surface-color) !important;
+/* ============================
+ * Base Styles
+ * ============================ */
+ body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: var(--background-color);
     color: var(--text-color);
 }
 
-.cart-select option:disabled {
-    color: var(--border-color);
-    background-color: var(--surface-color) !important;
-}
-
-/* Ensure dropdown matches theme in all browsers */
-.cart-select:focus {
-    border-color: var(--primary-blue);
-    outline: none;
-}
-
-@-moz-document url-prefix() {
-    .cart-select {
-        color: var(--text-color);
-        background-color: var(--surface-color);
-    }
-    
-    .cart-select option {
-        background-color: var(--surface-color);
-    }
-}/* Cart column specific styles */
-.results-table th:first-child {
-    width: 120px !important;
-    max-width: 120px !important;
-    min-width: 120px !important;
-    padding: 8px 4px !important;
-    background-color: rgba(150, 255, 150, 0.05) !important;
-    white-space: nowrap;
-}
-
-.results-table td:first-child {
-    width: 120px !important;
-    max-width: 120px !important;
-    min-width: 120px !important;
-    padding: 4px !important;
-    background-color: rgba(150, 255, 150, 0.05) !important;
-}
-
-/* Cart dropdown specific styles */
-.cart-select {
-    background-color: rgba(150, 255, 150, 0.05) !important;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    color: var(--text-color);
-    padding: 4px 20px 4px 4px !important;
-    font-size: 14px;
-    cursor: pointer;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    width: 100% !important;
-    max-width: 120px !important;
-    position: relative;
-    background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
-    background-repeat: no-repeat;
-    background-position: right 2px center;
-}
-
-.cart-select:hover {
-    border-color: var(--primary-blue);
-    background-color: rgba(150, 255, 150, 0.1) !important;
-}
-
-.cart-select option {
-    background-color: var(--surface-color) !important;
-    color: var(--text-color);
-    padding: 8px;
-}
-
-.cart-select option:disabled {
-    color: var(--border-color);
-    background-color: var(--surface-color) !important;
-}/* Base styles for VIBE interface */
+/* ============================
+ * Icon Bar Styles
+ * ============================ */
 .icon-bar {
     display: flex;
     align-items: center;
@@ -466,15 +58,9 @@ html.vibe-compact .menu-separator {
     margin: 0 8px;
 }
 
-body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
-    margin: 0;
-    padding: 20px;
-    background-color: var(--background-color);
-    color: var(--text-color);
-}
-
-/* Search container styles */
+/* ============================
+ * Search Container Styles
+ * ============================ */
 .search-container {
     background-color: var(--surface-color);
     padding: 24px;
@@ -502,7 +88,9 @@ input[type="search"]::placeholder {
     color: var(--text-muted);
 }
 
-/* Button styles */
+/* ============================
+ * Button Styles
+ * ============================ */
 .save-search-btn {
     padding: 12px 24px;
     background-color: var(--primary-blue);
@@ -518,7 +106,43 @@ input[type="search"]::placeholder {
     background-color: #0052cc;
 }
 
-/* Filter grid styles */
+/* ============================
+ * Filter Styles
+ * ============================ */
+/* Filter Dropdown Styles */
+.filter-dropdown {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-color);
+    padding: 4px 20px 4px 4px !important;
+    font-size: 14px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100% !important;
+    position: relative;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 2px center;
+}
+
+.filter-dropdown:hover {
+    border-color: var(--primary-blue);
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.filter-dropdown option {
+    background-color: var(--surface-color) !important;
+    color: var(--text-color);
+    padding: 8px;
+}
+
+.filter-dropdown option:disabled {
+    color: var(--border-color);
+    background-color: var(--surface-color) !important;
+}
 .filters-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -530,30 +154,81 @@ input[type="search"]::placeholder {
     width: 100%;
 }
 
-select {
+.filter-wrapper {
+    position: relative;
     width: 100%;
-    padding: 12px 16px;
-    font-size: 16px;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    background-color: transparent;
-    color: var(--text-color);
-    appearance: none;
-    cursor: pointer;
 }
 
-.filter-select::after {
+.filter-button {
+    width: 100%;
+    padding: 4px 16px 4px 4px;
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-color);
+    font-size: 13px;
+    cursor: pointer;
+    text-align: left;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.filter-button::after {
     content: "▼";
-    font-size: 12px;
-    color: var(--text-muted);
     position: absolute;
-    right: 16px;
+    right: 4px;
     top: 50%;
     transform: translateY(-50%);
-    pointer-events: none;
+    font-size: 10px;
+    color: var(--text-muted);
 }
 
-/* Results table styles */
+.filter-button:hover {
+    border-color: var(--primary-blue);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.filter-button.active {
+    border-color: var(--primary-blue);
+    background-color: var(--surface-color);
+}
+
+/* Filter Dropdown Menu */
+.filter-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 4px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    z-index: 1000;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.filter-wrapper.open .filter-dropdown-menu {
+    display: block;
+}
+
+.filter-dropdown-menu .menu-item {
+    padding: 8px 16px;
+    cursor: pointer;
+    color: var(--text-color);
+    white-space: nowrap;
+}
+
+.filter-dropdown-menu .menu-item:hover {
+    background-color: var(--primary-blue);
+}
+
+/* ============================
+ * Results Table Styles
+ * ============================ */
 .results-table {
     width: 100%;
     border-collapse: separate;
@@ -580,59 +255,7 @@ select {
     background-color: rgba(255, 255, 255, 0.05);
 }
 
-/* Context menu styles */
-.context-menu {
-    display: none;
-    position: fixed;
-    background: var(--surface-color);
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    padding: 4px 0;
-    min-width: 150px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    z-index: 1000;
-}
-
-.context-menu-item {
-    padding: 8px 16px;
-    cursor: pointer;
-    color: var(--text-color);
-}
-
-.context-menu-item:hover {
-    background-color: var(--primary-blue);
-}
-
-/* Context menu enhancements */
-.context-menu-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.context-menu-item svg {
-    width: 16px;
-    height: 16px;
-}
-
-.context-menu-separator {
-    height: 1px;
-    background-color: var(--border-color);
-    margin: 4px 0;
-}
-
-.cart-number {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 18px;
-    height: 18px;
-    background-color: var(--border-color);
-    border-radius: 4px;
-    font-size: 12px;
-}
-
-/* Drag styles */
+/* Drag and Drop Styles */
 .results-table tbody tr td:not(:first-child) {
     cursor: grab;
 }
@@ -651,4 +274,283 @@ select {
     cursor: default;
     opacity: 1 !important;
     background-color: var(--background-color) !important;
+}
+
+/* Cart Column Styles */
+.results-table th:first-child {
+    width: 120px !important;
+    max-width: 120px !important;
+    min-width: 120px !important;
+    padding: 8px 4px !important;
+    background-color: rgba(150, 255, 150, 0.05) !important;
+    white-space: nowrap;
+}
+
+.results-table td:first-child {
+    width: 120px !important;
+    max-width: 120px !important;
+    min-width: 120px !important;
+    padding: 4px !important;
+    background-color: rgba(150, 255, 150, 0.05) !important;
+}
+
+/* ============================
+ * Unified Menu Styles
+ * ============================ */
+.unified-menu {
+    display: none;
+    position: fixed;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 4px 0;
+    min-width: 150px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    z-index: 1000;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    color: var(--text-color);
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.menu-item:hover {
+    background-color: var(--primary-blue);
+}
+
+.menu-item svg {
+    width: 16px;
+    height: 16px;
+}
+
+.menu-separator {
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 4px 0;
+}
+
+/* ============================
+ * Cart Button & Menu Styles
+ * ============================ */
+.cart-button {
+    width: 100%;
+    padding: 4px 16px 4px 4px;
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-color);
+    font-size: 13px;
+    cursor: pointer;
+    text-align: left;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.cart-button::after {
+    content: "▼";
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    color: var(--text-muted);
+}
+
+.cart-button:hover {
+    border-color: var(--primary-blue);
+    background-color: rgba(100, 255, 100, 0.24);
+}
+
+.cart-button.active {
+    border-color: var(--primary-blue);
+    background-color: var(--surface-color);
+}
+
+/* Cart Select Styles */
+.cart-select {
+    background-color: rgba(150, 255, 150, 0.05) !important;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-color);
+    padding: 4px 20px 4px 4px !important;
+    font-size: 14px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100% !important;
+    max-width: 120px !important;
+    position: relative;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 2px center;
+}
+
+.cart-select:hover {
+    border-color: var(--primary-blue);
+    background-color: rgba(150, 255, 150, 0.1) !important;
+}
+
+.cart-select:focus {
+    border-color: var(--primary-blue);
+    outline: none;
+}
+
+.cart-select option {
+    background-color: var(--surface-color) !important;
+    color: var(--text-color);
+    padding: 8px;
+}
+
+.cart-select option:disabled {
+    color: var(--border-color);
+    background-color: var(--surface-color) !important;
+}
+
+/* ============================
+ * Compact Mode Styles
+ * ============================ */
+html.vibe-compact .icon-bar {
+    padding: 4px !important;
+    margin-bottom: 8px !important;
+    min-height: unset !important;
+}
+
+html.vibe-compact .icon-button {
+    width: 24px !important;
+    height: 24px !important;
+    padding: 0 !important;
+}
+
+html.vibe-compact .icon-button svg {
+    width: 14px !important;
+    height: 14px !important;
+}
+
+html.vibe-compact .search-container {
+    padding: 8px !important;
+    margin-bottom: 8px !important;
+}
+
+html.vibe-compact input[type="search"] {
+    height: 28px !important;
+    padding: 4px 8px !important;
+    font-size: 12px !important;
+}
+
+html.vibe-compact .save-search-btn {
+    height: 28px !important;
+    padding: 0 12px !important;
+    font-size: 12px !important;
+}
+
+html.vibe-compact .filter-button {
+    height: 28px !important;
+    padding: 2px 8px 2px 2px !important;
+    font-size: 11px !important;
+}
+
+html.vibe-compact .filter-button svg {
+    width: 14px !important;
+    height: 14px !important;
+}
+
+html.vibe-compact .filter-dropdown {
+    height: 28px !important;
+    padding: 4px 8px !important;
+    font-size: 12px !important;
+}
+
+html.vibe-compact .filter-dropdown-menu .menu-item {
+    padding: 4px 8px !important;
+    font-size: 11px !important;
+}
+
+html.vibe-compact .cart-button {
+    height: 24px !important;
+    padding: 2px 8px 2px 2px !important;
+    font-size: 11px !important;
+}
+
+html.vibe-compact .unified-menu {
+    padding: 2px 0 !important;
+}
+
+html.vibe-compact .menu-item {
+    padding: 4px 8px !important;
+    font-size: 11px !important;
+}
+
+html.vibe-compact .menu-item svg {
+    width: 12px !important;
+    height: 12px !important;
+}
+
+html.vibe-compact .menu-separator {
+    margin: 2px 0 !important;
+}
+
+/* ============================
+ * Browser-Specific Styles
+ * ============================ */
+/* Firefox */
+@-moz-document url-prefix() {
+    .cart-select {
+        color: var(--text-color);
+        background-color: var(--surface-color);
+    }
+    
+    .cart-select option {
+        background-color: var(--surface-color);
+    }
+    
+    .filter-button {
+        color: var(--text-color);
+        background-color: transparent;
+    }
+}
+
+/* Filter dropdown browser compatibility */
+@-moz-document url-prefix() {
+    .filter-dropdown {
+        color: var(--text-color);
+        background-color: var(--surface-color);
+    }
+    
+    .filter-dropdown option {
+        background-color: var(--surface-color);
+    }
+}
+
+/* Microsoft Edge/IE */
+@supports (-ms-ime-align:auto) {
+    .cart-select {
+        background-color: rgba(150, 255, 150, 0.05) !important;
+        color: var(--text-color) !important;
+    }
+    
+    .cart-select option {
+        background-color: var(--surface-color) !important;
+        color: var(--text-color) !important;
+    }
+}
+
+/* Chrome/Safari */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    .cart-select {
+        background-color: rgba(150, 255, 150, 0.05) !important;
+    }
+    
+    .cart-select option {
+        background-color: var(--surface-color) !important;
+        color: var(--text-color) !important;
+    }
 }
