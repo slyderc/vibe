@@ -1,3 +1,4 @@
+```
 src/
 ├── css/
 │   ├── vibe.css        # Main CSS styles
@@ -20,4 +21,5 @@ src/
 │   └── myriad.php      # Myriad API settings
 └── index.php           # Main entry point
 
+```
 
