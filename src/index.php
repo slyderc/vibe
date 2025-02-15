@@ -8,7 +8,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     
-    <title>VIBE - Music Search</title>
+    <title>VIBE - Versatile Index for Broadcasting Everything</title>
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- Add version parameters to force reload -->
     <link rel="stylesheet" href="./css/vibe.css?v=<?php echo time(); ?>">
@@ -23,9 +23,11 @@
             <i data-lucide="filter"></i>
         </button>
         <div class="icon-separator"></div>
-        <button class="icon-button" title="Recent Searches">
-            <i data-lucide="history"></i>
-        </button>
+        <div class="history-menu-container" style="position: relative;">
+            <button title="Recent Searches" class="icon-button" title="Recent Searches">
+                <i data-lucide="history"></i>
+            </button>
+        </div>
         <button class="icon-button" title="Saved Searches">
             <i data-lucide="bookmark"></i>
         </button>

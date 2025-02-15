@@ -4,16 +4,86 @@ document.addEventListener('DOMContentLoaded', function() {
         cueInCart(mediaId, cartNumber) {
             const uri = `myriad://Players/CueMediaItem?mediaId=${mediaId}&forcePlayerIndex=${cartNumber}`;
             window.location.href = uri;
+            return true;
         },
         
         cueInFirstAvailable(mediaId) {
             const uri = `myriad://Players/CueMediaItem?mediaId=${mediaId}`;
             window.location.href = uri;
+            return true;
         },
         
         sendToCueEdit(mediaId) {
             const uri = `myriad://Media/OpenInPreviewPlayer?mediaId=${mediaId}`;
             window.location.href = uri;
+            return true;
+        }
+    };
+
+    // Cart state manager
+    const cartStateManager = {
+        states: new Map(),
+
+        init() {
+            const savedStates = localStorage.getItem('cartStates');
+            if (savedStates) {
+                this.states = new Map(JSON.parse(savedStates));
+                this.updateAllButtons();
+            }
+        },
+
+        save() {
+            localStorage.setItem('cartStates', 
+                JSON.stringify(Array.from(this.states.entries())));
+        },
+
+        reset() {
+            this.states.clear();
+            localStorage.removeItem('cartStates');
+            
+            // Reset only cart buttons in the results table
+            document.querySelectorAll('.results-table .cart-button').forEach(button => {
+                this.resetButton(button);
+            });
+        },
+
+        updateState(mediaId, cartNumber) {
+            this.states.set(mediaId, {
+                cartNumber,
+                timestamp: new Date().toISOString()
+            });
+            this.save();
+        },
+
+        updateButton(button, cartNumber) {
+            button.innerHTML = `
+                <i data-lucide="music" size="14"></i>
+                Cart ${cartNumber} Loaded
+            `;
+            button.classList.add('cart-loaded');
+            lucide.createIcons({
+                parent: button
+            });
+        },
+
+        resetButton(button) {
+            button.innerHTML = `
+                <i data-lucide="pause" size="14"></i>
+                Cart
+            `;
+            button.classList.remove('cart-loaded');
+            lucide.createIcons({
+                parent: button
+            });
+        },
+
+        updateAllButtons() {
+            this.states.forEach((state, mediaId) => {
+                const button = document.querySelector(`tr[data-media-id="${mediaId}"] .cart-button`);
+                if (button) {
+                    this.updateButton(button, state.cartNumber);
+                }
+            });
         }
     };
 
@@ -94,13 +164,28 @@ document.addEventListener('DOMContentLoaded', function() {
         handleMenuAction(action) {
             if (!this.currentMediaId) return;
 
+            let success = false;
+            let cartNumber = null;
+
             if (action === 'cart-auto') {
-                myriadController.cueInFirstAvailable(this.currentMediaId);
+                success = myriadController.cueInFirstAvailable(this.currentMediaId);
+                cartNumber = 'Auto';
             } else if (action.startsWith('cart-')) {
-                const cartNumber = action.split('-')[1];
-                myriadController.cueInCart(this.currentMediaId, cartNumber);
+                cartNumber = action.split('-')[1];
+                success = myriadController.cueInCart(this.currentMediaId, cartNumber);
             } else if (action === 'cue-edit') {
-                myriadController.sendToCueEdit(this.currentMediaId);
+                success = myriadController.sendToCueEdit(this.currentMediaId);
+            }
+
+            if (success && cartNumber) {
+                // Update state regardless of how menu was opened
+                cartStateManager.updateState(this.currentMediaId, cartNumber);
+                
+                // Find and update the cart button for this media item
+                const button = document.querySelector(`tr[data-media-id="${this.currentMediaId}"] .cart-button`);
+                if (button) {
+                    cartStateManager.updateButton(button, cartNumber);
+                }
             }
 
             this.hide();
@@ -127,18 +212,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 const viewportWidth = window.innerWidth;
                 const viewportHeight = window.innerHeight;
 
-                // Adjust horizontal position
                 if (x + menuRect.width > viewportWidth) {
                     x = viewportWidth - menuRect.width - 5;
                 }
 
-                // Adjust vertical position
                 if (y + menuRect.height > viewportHeight) {
                     if (button) {
-                        // If triggered by button, show above the button
                         y = rect.top - menuRect.height;
                     } else {
-                        // If right-click, ensure it's within viewport
                         y = viewportHeight - menuRect.height - 5;
                     }
                 }
@@ -159,7 +240,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Initialize menu manager
+    // Make cartStateManager globally accessible
+    window.cartStateManager = cartStateManager;
     const menuManager = new MenuManager();
 
     // Setup table interactions

@@ -1,17 +1,25 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Search functionality
+    // Cache DOM elements
     const searchInput = document.querySelector('input[type="search"]');
     const searchButton = document.querySelector('.save-search-btn');
     const filterSelects = document.querySelectorAll('.filter-select select');
     const historyButton = document.querySelector('button[title="Recent Searches"]');
-
+    
     // Initialize history menu
-    let historyMenu = document.createElement('div');
+    const historyMenu = document.createElement('div');
     historyMenu.id = 'search-history-menu';
-    historyMenu.className = 'unified-menu';
-    document.body.appendChild(historyMenu);
+    // historyMenu.className = 'unified-menu';
 
-    // Search history
+    // Append the menu to the container instead of document.body
+    const historyContainer = document.querySelector('.history-menu-container');
+    if (historyContainer) {
+        historyContainer.appendChild(historyMenu);
+    } else {
+        document.body.appendChild(historyMenu);
+    }
+
+    
+    // Search history manager
     const searchHistory = {
         items: JSON.parse(localStorage.getItem('searchHistory') || '[]'),
         
@@ -22,18 +30,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 timestamp: new Date().toISOString()
             };
             
-            // Remove duplicate searches
+            // Remove duplicates
             this.items = this.items.filter(item => 
                 !(item.query === query && 
                   JSON.stringify(item.filters) === JSON.stringify(filters))
             );
             
             this.items.unshift(searchEntry);
-            
-            // Keep last 10 searches
-            if (this.items.length > 10) {
-                this.items.pop();
-            }
+            this.items = this.items.slice(0, 10); // Keep only 10 items
             
             localStorage.setItem('searchHistory', JSON.stringify(this.items));
             this.updateHistoryUI();
@@ -46,8 +50,6 @@ document.addEventListener('DOMContentLoaded', function() {
         },
 
         updateHistoryUI() {
-            if (!historyMenu) return;
-
             if (this.items.length === 0) {
                 historyMenu.innerHTML = `
                     <div class="menu-item">
@@ -75,55 +77,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             `).join('');
 
-            // Initialize icons in the new menu items
+            // Initialize icons
             lucide.createIcons({
                 parent: historyMenu
             });
 
-            // Add click handlers for history items
-            historyMenu.querySelectorAll('.menu-item').forEach(item => {
-                if (!item.dataset.search) return;
-                
+            // Add click handlers
+            historyMenu.querySelectorAll('.menu-item[data-search]').forEach(item => {
                 item.addEventListener('click', () => {
                     const searchData = JSON.parse(item.dataset.search);
                     loadSearch(searchData);
-                    historyMenu.style.display = 'none';
+                    toggleHistoryMenu(false);
                 });
             });
         }
     };
 
-    // Function to load a search from history
-    function loadSearch(searchData) {
-        // Update search input
-        if (searchInput) {
-            searchInput.value = searchData.query;
-        }
-
-        // Update filter selections
-        Object.entries(searchData.filters).forEach(([filterName, value]) => {
-            const select = document.querySelector(`select[data-filter="${filterName.toLowerCase()}"]`);
-            if (select) {
-                select.value = value;
-                // Update custom filter button text if it exists
-                const button = select.previousElementSibling;
-                if (button && button.classList.contains('filter-button')) {
-                    button.querySelector('span').textContent = 
-                        select.options[select.selectedIndex].text;
-                }
-                // Trigger change event for the filter manager
-                select.dispatchEvent(new Event('change'));
-            }
-        });
-
-        // Trigger search
-        performSearch();
-    }
-
-    // Handle search
+    // Handle search functionality
     function performSearch() {
         const query = searchInput.value.trim();
         if (!query) return;
+
+        // Reset cart states
+        if (window.cartStateManager) {
+            window.cartStateManager.reset();
+        }
 
         // Collect filter values
         const filters = {};
@@ -135,11 +113,38 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Add to search history
         searchHistory.add(query, filters);
+    }
 
-        // TODO: Implement actual search functionality with Myriad API
-        console.log('Searching for:', query, 'with filters:', filters);
+    // Load search from history
+    function loadSearch(searchData) {
+        searchInput.value = searchData.query;
+        
+        Object.entries(searchData.filters).forEach(([filterName, value]) => {
+            const select = document.querySelector(`select[data-filter="${filterName.toLowerCase()}"]`);
+            if (select) {
+                select.value = value;
+                // Update custom filter button if it exists
+                const button = select.previousElementSibling;
+                if (button && button.classList.contains('filter-button')) {
+                    button.querySelector('span').textContent = 
+                        select.options[select.selectedIndex].text;
+                }
+                select.dispatchEvent(new Event('change'));
+            }
+        });
+
+        performSearch();
+    }
+
+    // Toggle history menu (let CSS handle positioning)
+    function toggleHistoryMenu(show) {
+        if (show) {
+            historyMenu.style.display = 'block';
+            searchHistory.updateHistoryUI();
+        } else {
+            historyMenu.style.display = 'none';
+        }
     }
 
     // Event listeners
@@ -159,40 +164,26 @@ document.addEventListener('DOMContentLoaded', function() {
     if (historyButton) {
         historyButton.addEventListener('click', (e) => {
             e.stopPropagation();
-            
-            // Toggle history menu
             const isVisible = historyMenu.style.display === 'block';
-            historyMenu.style.display = isVisible ? 'none' : 'block';
-            
-            if (!isVisible) {
-                // Position the menu below the history button
-                const rect = historyButton.getBoundingClientRect();
-                historyMenu.style.top = `${rect.bottom + window.scrollY}px`;
-                historyMenu.style.left = `${rect.left}px`;
-                
-                // Update the UI in case it changed
-                searchHistory.updateHistoryUI();
-            }
+            toggleHistoryMenu(!isVisible);
         });
     }
 
-    // Filter change handlers
-    filterSelects.forEach(select => {
-        select.addEventListener('change', () => {
-            if (searchInput.value.trim()) {
-                performSearch();
-            }
-        });
-    });
-
-    // Close history menu on outside click
+    // Close menu on outside click
     document.addEventListener('click', (e) => {
         if (!e.target.closest('button[title="Recent Searches"]') && 
             !e.target.closest('#search-history-menu')) {
-            historyMenu.style.display = 'none';
+            toggleHistoryMenu(false);
         }
     });
 
-    // Initialize history UI
+    // Close menu on ESC key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            toggleHistoryMenu(false);
+        }
+    });
+
+    // Initialize
     searchHistory.updateHistoryUI();
 });
