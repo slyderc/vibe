@@ -91,51 +91,14 @@
             </tr>
         </thead>
         <tbody>
-            <tr data-media-id="10001">
-                <td class="cart-cell">
-                    <button class="cart-button">
-                        <i data-lucide="pause" size="14"></i>Cart
-                    </button>
-                </td>
-                <td>Blue Monday</td>
-                <td>New Order</td>
-                <td>New Wave</td>
-                <td>7:29</td>
-                <td>130</td>
-                <td>Factory</td>
-            </tr>
-            <tr data-media-id="10002">
-                <td class="cart-cell">
-                    <button class="cart-button">
-                        <i data-lucide="pause" size="14"></i>Cart
-                    </button>
-                </td>
-                <td>Just Like Heaven</td>
-                <td>The Cure</td>
-                <td>New Wave</td>
-                <td>3:32</td>
-                <td>126</td>
-                <td>Fiction</td>
-            </tr>
-            <tr data-media-id="10003">
-                <td class="cart-cell">
-                    <button class="cart-button">
-                        <i data-lucide="pause" size="14"></i>Cart
-                    </button>
-                </td>
-                <td>Love Will Tear Us Apart</td>
-                <td>Joy Division</td>
-                <td>Post-Punk</td>
-                <td>3:26</td>
-                <td>148</td>
-                <td>Factory</td>
-            </tr>
+            <!-- Dynamic content will be inserted here -->
         </tbody>
     </table>
 
     <!-- Scripts with version parameters -->
     <script src="js/search.js?v=<?php echo time(); ?>"></script>
     <script src="js/filter-menu.js?v=<?php echo time(); ?>"></script>
+    <script src="js/data.js?v=<?php echo time(); ?>"></script>
     <script src="js/playout.js?v=<?php echo time(); ?>"></script>
     <script src="js/cache.js?v=<?php echo time(); ?>"></script>
     <script>

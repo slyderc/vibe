@@ -97,12 +97,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function performSearch() {
         const query = searchInput.value.trim();
         if (!query) return;
-
+    
         // Reset cart states
         if (window.cartStateManager) {
             window.cartStateManager.reset();
         }
-
+    
         // Collect filter values
         const filters = {};
         filterSelects.forEach(select => {
@@ -112,7 +112,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 filters[filterName] = filterValue;
             }
         });
+    
+        // Filter the test data based on search query and filters
+        const filteredData = testData.filter(item => {
+            const matchesQuery = Object.values(item)
+                .some(value => 
+                    value.toString().toLowerCase()
+                        .includes(query.toLowerCase())
+                );
+            
+            const matchesFilters = Object.entries(filters)
+                .every(([key, value]) => 
+                    item[key.toLowerCase()] === value
+                );
+            
+            return matchesQuery && matchesFilters;
+        });
 
+        // Update the table with filtered results
+        updateTableData(filteredData);
         searchHistory.add(query, filters);
     }
 
