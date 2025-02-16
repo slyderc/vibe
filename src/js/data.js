@@ -37,6 +37,15 @@ const testData = [
     },
     {
         mediaId: 10005,
+        title: "People Are People",
+        artist: "Depeche Mode",
+        genre: "Synthpop",
+        length: "4:01",
+        bpm: 127,
+        label: "Sire"
+    },
+    {
+        mediaId: 10006,
         title: "Sweet Dreams",
         artist: "Eurythmics",
         genre: "Synthpop",
@@ -67,20 +76,28 @@ function generateTableRow(data) {
 function initializeRowHandlers(row) {
     const mediaId = row.dataset.mediaId;
     
-    // Context menu handler
+    // Context menu handler with defensive check
     row.addEventListener('contextmenu', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        window.menuManager.show(e.pageX, e.pageY, mediaId);
+        if (window.menuManager && typeof window.menuManager.show === 'function') {
+            window.menuManager.show(e.pageX, e.pageY, mediaId);
+        } else {
+            console.warn('MenuManager not available or show method not found');
+        }
     });
 
-    // Cart button handler
+    // Cart button handler with defensive check
     const cartButton = row.querySelector('.cart-button');
     if (cartButton) {
         cartButton.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
-            window.menuManager.show(0, 0, mediaId, cartButton);
+            if (window.menuManager && typeof window.menuManager.show === 'function') {
+                window.menuManager.show(0, 0, mediaId, cartButton);
+            } else {
+                console.warn('MenuManager not available or show method not found');
+            }
         });
     }
 
@@ -110,9 +127,13 @@ function updateTableData(data) {
         tbody.innerHTML = data.map(item => generateTableRow(item)).join('');
         
         // Reinitialize Lucide icons for the new content
-        lucide.createIcons({
-            parent: tbody
-        });
+        if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+            lucide.createIcons({
+                parent: tbody
+            });
+        } else {
+            console.warn('Lucide icons not available');
+        }
 
         // Initialize handlers for each new row
         tbody.querySelectorAll('tr').forEach(row => {
@@ -120,13 +141,18 @@ function updateTableData(data) {
         });
 
         // Restore cart states if they exist
-        if (window.cartStateManager) {
+        if (window.cartStateManager && typeof window.cartStateManager.updateAllButtons === 'function') {
             window.cartStateManager.updateAllButtons();
         }
     }
 }
 
-// Initialize table with test data
-document.addEventListener('DOMContentLoaded', () => {
+// Initialize table with test data when DOM is loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        updateTableData(testData);
+    });
+} else {
+    // DOM already loaded, update immediately
     updateTableData(testData);
-});
+}

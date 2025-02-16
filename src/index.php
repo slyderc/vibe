@@ -100,15 +100,37 @@
         </tbody>
     </table>
 
-    <!-- Scripts with version parameters -->
-    <script src="js/search.js?v=<?php echo time(); ?>"></script>
+    <!-- Scripts with version parameters - order matters for dependencies -->
+    <script src="js/cache.js?v=<?php echo time(); ?>"></script>
+    <script src="js/menu-manager.js?v=<?php echo time(); ?>"></script>
+    <script src="js/playout.js?v=<?php echo time(); ?>"></script>
     <script src="js/filter-menu.js?v=<?php echo time(); ?>"></script>
     <script src="js/data.js?v=<?php echo time(); ?>"></script>
-    <script src="js/playout.js?v=<?php echo time(); ?>"></script>
-    <script src="js/cache.js?v=<?php echo time(); ?>"></script>
+    <script src="js/search.js?v=<?php echo time(); ?>"></script>
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
+
+        // Initialize the Myriad controller
+        window.myriadController = {
+            cueInCart(mediaId, cartNumber) {
+                const uri = `myriad://Players/CueMediaItem?mediaId=${mediaId}&forcePlayerIndex=${cartNumber}`;
+                window.location.href = uri;
+                return true;
+            },
+            
+            cueInFirstAvailable(mediaId) {
+                const uri = `myriad://Players/CueMediaItem?mediaId=${mediaId}`;
+                window.location.href = uri;
+                return true;
+            },
+            
+            sendToCueEdit(mediaId) {
+                const uri = `myriad://Media/OpenInPreviewPlayer?mediaId=${mediaId}`;
+                window.location.href = uri;
+                return true;
+            }
+        };
     </script>
 </body>
 </html>
