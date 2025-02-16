@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchButton = document.querySelector('.save-search-btn');
     const filterSelects = document.querySelectorAll('.filter-select select');
     const historyButton = document.querySelector('button[title="Recent Searches"]');
+    const clearSearchButton = document.querySelector('.clear-search-button');
     
     // Initialize history menu
     const historyMenu = document.createElement('div');
@@ -18,7 +19,35 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.appendChild(historyMenu);
     }
 
-    
+    // Show/hide clear button based on input content
+    if (searchInput) {
+        searchInput.addEventListener('input', () => {
+            clearSearchButton.style.display = searchInput.value ? 'block' : 'none';
+        });
+    }
+
+    // Clear search functionality
+    if (clearSearchButton) {
+        clearSearchButton.addEventListener('click', () => {
+            searchInput.value = '';
+            clearSearchButton.style.display = 'none';
+            
+            // Reset filters
+            filterSelects.forEach(select => {
+                select.value = '';
+                // Update custom filter button if it exists
+                const button = select.previousElementSibling;
+                if (button && button.classList.contains('filter-button')) {
+                    button.querySelector('span').textContent = 
+                        select.options[0].text;
+                }
+            });
+            
+            // Reset the table to show all data
+            updateTableData(testData);
+        });
+    }
+
     // Search history manager
     const searchHistory = {
         items: JSON.parse(localStorage.getItem('searchHistory') || '[]'),

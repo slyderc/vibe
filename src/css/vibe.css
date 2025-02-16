@@ -74,6 +74,14 @@
     margin-bottom: 24px;
 }
 
+.clear-search-button:hover {
+    color: var(--text-color);
+}
+
+.clear-search-button {
+    color: var(--text-muted);
+}
+
 input[type="search"] {
     flex: 1;
     padding: 12px 16px;

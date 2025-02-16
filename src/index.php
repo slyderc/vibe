@@ -39,7 +39,12 @@
 
     <div class="search-container compact">
         <div class="search-bar">
-            <input type="search" placeholder="Search..." class="compact">
+            <div class="search-input-wrapper" style="position: relative; flex: 1;">
+                <input type="search" placeholder="Search..." class="compact">
+                <button class="clear-search-button" style="display: none; position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; padding: 4px;">
+                    <i data-lucide="x" size="14"></i>
+                </button>
+            </div>
             <button class="save-search-btn compact">Search</button>
         </div>
         <div class="filters-grid compact">
