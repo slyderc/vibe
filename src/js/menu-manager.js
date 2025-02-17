@@ -107,10 +107,11 @@ class MenuManager {
         this.isVisible = true;
         this.element.style.display = 'block';
 
+        let rect;
         if (button) {
             const rect = button.getBoundingClientRect();
             x = rect.left;
-            y = rect.bottom + window.pageYOffset;
+            y = rect.bottom + window.scrollY;
             this.activeButton = button;
             button.classList.add('active');
         } else {
@@ -128,7 +129,7 @@ class MenuManager {
             }
 
             if (y + menuRect.height > viewportHeight) {
-                if (button) {
+                if (button && rect) {
                     y = rect.top - menuRect.height;
                 } else {
                     y = viewportHeight - menuRect.height - 5;
