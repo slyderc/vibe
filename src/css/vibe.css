@@ -415,6 +415,24 @@ input[type="search"]::-moz-search-clear {
     background-color: rgba(150, 255, 150, 0.05) !important;
 }
 
+/* Results table sort styles */
+.results-table th[data-sort] {
+    position: relative;
+    cursor: pointer;
+}
+
+.results-table th.sort-asc::after {
+    content: ' - ▲';
+    font-size: 0.8em;
+    vertical-align: middle;
+}
+
+.results-table th.sort-desc::after {
+    content: ' - ▼';
+    font-size: 0.8em;
+    vertical-align: middle;
+}
+
 /* ============================
  * Unified Menu Styles
  * ============================ */

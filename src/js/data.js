@@ -156,3 +156,35 @@ if (document.readyState === 'loading') {
     // DOM already loaded, update immediately
     updateTableData(testData);
 }
+
+// Table sorting function
+function updateTableData(data) {
+    const tbody = document.querySelector('.results-table tbody');
+    if (tbody) {
+        tbody.innerHTML = data.map(item => generateTableRow(item)).join('');
+        
+        // Reinitialize Lucide icons for the new content
+        if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+            lucide.createIcons({
+                parent: tbody
+            });
+        } else {
+            console.warn('Lucide icons not available');
+        }
+
+        // Initialize handlers for each new row
+        tbody.querySelectorAll('tr').forEach(row => {
+            initializeRowHandlers(row);
+        });
+
+        // Restore cart states if they exist
+        if (window.cartStateManager && typeof window.cartStateManager.updateAllButtons === 'function') {
+            window.cartStateManager.updateAllButtons();
+        }
+
+        // Reinitialize sorting
+        if (window.tableSortManager) {
+            window.tableSortManager = new TableSortManager();
+        }
+    }
+}

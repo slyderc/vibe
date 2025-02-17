@@ -101,6 +101,7 @@
     <script src="js/filter-menu.js?v=<?php echo time(); ?>"></script>
     <script src="js/data.js?v=<?php echo time(); ?>"></script>
     <script src="js/search.js?v=<?php echo time(); ?>"></script>
+    <script src="js/table-sort.js?v=<?php echo time(); ?>"></script>
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
