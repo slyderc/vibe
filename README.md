@@ -1,5 +1,5 @@
 
-### VIBE: Minimum Requirements Document
+### VIBE: Minimum Requirements Document ###
 
 #### **Overview:** ####
 Versatile Index for Broadcasting Everything (VIBE) is a proposed tool designed to provide search functionality that isn't currently present in Myriad's native search. It enables DJs and Music Programmers to perform advanced search queries on Song media items based on extended metadata and user-defined Categories and Attributes. Search results can quickly be located and selected for cart loads directly in Myriad. The tool integrates seamlessly with Myriad via its "HTML Display View" layout widget, first made available in Myriad Playout v6.6.1.
