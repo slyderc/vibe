@@ -72,6 +72,13 @@
     display: flex;
     gap: 16px;
     margin-bottom: 24px;
+    width: 100%;
+}
+
+.search-input-wrapper {
+    position: relative;
+    flex: 1;
+    margin-right: 0;
 }
 
 .clear-search-button:hover {
@@ -83,7 +90,7 @@
 }
 
 input[type="search"] {
-    flex: 1;
+    width: 100%;
     padding: 12px 16px;
     font-size: 16px;
     border: 1px solid var(--border-color);
@@ -178,6 +185,7 @@ input[type="search"]::placeholder {
  * Button Styles
  * ============================ */
 .save-search-btn {
+    flex-shrink: 0;
     padding: 12px 24px;
     background-color: var(--primary-blue);
     border: none;
