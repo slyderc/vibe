@@ -16,13 +16,6 @@
 </head>
 <body>
     <div class="icon-bar compact">
-        <button class="icon-button" title="Basic Search">
-            <i data-lucide="search"></i>
-        </button>
-        <button class="icon-button" title="Advanced Search">
-            <i data-lucide="filter"></i>
-        </button>
-        <div class="icon-separator"></div>
         <div class="history-menu-container" style="position: relative;">
             <button title="Recent Searches" class="icon-button" title="Recent Searches">
                 <i data-lucide="history"></i>
