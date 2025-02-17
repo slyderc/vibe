@@ -199,7 +199,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (button) {
                 const rect = button.getBoundingClientRect();
                 x = rect.left;
-                y = rect.bottom + window.pageYOffset;
+                // y = rect.bottom + window.pageYOffset;
+                y = rect.bottom + window.scrollY;
                 this.activeButton = button;
                 button.classList.add('active');
             } else {
