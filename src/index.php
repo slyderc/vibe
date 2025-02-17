@@ -40,6 +40,7 @@
     <div class="search-container compact">
         <div class="search-bar">
             <div class="search-input-wrapper" style="position: relative; flex: 1;">
+                <i data-lucide="search" class="search-icon"></i>
                 <input type="search" placeholder="Search..." class="compact">
                 <button class="clear-search-button" style="display: none; position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; padding: 4px;">
                     <i data-lucide="x" size="14"></i>

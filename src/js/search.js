@@ -166,6 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load search from history
     function loadSearch(searchData) {
         searchInput.value = searchData.query;
+        clearSearchButton.style.display = searchInput.value ? 'block' : 'none';
         
         Object.entries(searchData.filters).forEach(([filterName, value]) => {
             const select = document.querySelector(`select[data-filter="${filterName.toLowerCase()}"]`);
@@ -180,7 +181,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 select.dispatchEvent(new Event('change'));
             }
         });
-
         performSearch();
     }
 
