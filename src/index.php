@@ -45,7 +45,7 @@
                     <i data-lucide="x" size="14"></i>
                 </button>
             </div>
-            <button class="save-search-btn compact">Search</button>
+            <button class="save-search-btn compact">Save Search</button>
         </div>
         <div class="filters-grid compact">
             <div class="filter-select">
